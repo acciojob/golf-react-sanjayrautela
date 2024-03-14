@@ -13,9 +13,9 @@ class App extends Component {
         this.buttonClickHandler = this.buttonClickHandler.bind(this)
     };
 
-    buttonClickHandler = () => {
-        this.setState({renderBall:true});
-   }
+    buttonClickHandler() {
+        this.setState({ renderBall: true });
+    }
    
 
     // bind ArrowRight keydown event
