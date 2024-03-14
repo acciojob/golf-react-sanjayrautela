@@ -16,13 +16,7 @@ class App extends Component {
     buttonClickHandler = () => {
         this.setState({renderBall:true});
    }
-    renderBallOrButton() {
-		if (this.state.renderBall) {
-		    return <div className="ball" style={this.state.ballPosition}></div>
-		} else {
-		    return <button onClick={this.buttonClickHandler} >Start</button>
-		}
-    }
+   
 
     // bind ArrowRight keydown event
     componentDidMount() {
