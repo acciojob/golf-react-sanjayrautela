@@ -1,48 +1,38 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import './styles/App.css';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      renderBall: false,
-      ballPosition: 0
+const App = () => {
+  const [renderBall, setRenderBall] = useState(false);
+  const [ballPosition, setBallPosition] = useState(0);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === "ArrowRight") {
+        setBallPosition(prevPosition => prevPosition + 5);
+      }
     };
-  }
+    
+    document.addEventListener("keydown", handleKeyDown);
+    
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
-  componentDidMount() {
-    document.addEventListener("keydown", this.handleKeyDown);
-  }
+  const buttonClickHandler = () => {
+    setRenderBall(true);
+  };
 
-  componentWillUnmount() {
-    document.removeEventListener("keydown", this.handleKeyDown);
-  }
-
-  handleKeyDown = (event) => {
-    if (event.key === "ArrowRight") {
-      this.setState((prevState) => ({
-        ballPosition: prevState.ballPosition + 5
-      }));
-    }
-  }
-
-  buttonClickHandler = () => {
-    this.setState({ renderBall: true });
-  }
-
-  render() {
-    const { renderBall, ballPosition } = this.state;
-    return (
-      <div className="App">
-        <button className="start" onClick={this.buttonClickHandler} style={{ display: renderBall ? 'none' : 'block' }}>
-          Start
-        </button>
-        {renderBall && (
-          <div className="ball" style={{ left: `${ballPosition}px` }}></div>
-        )}
-      </div>
-    );
-  }
-}
+  return (
+    <div className="App">
+      <button className="start" onClick={buttonClickHandler} style={{ display: renderBall ? 'none' : 'block' }}>
+        Start
+      </button>
+      {renderBall && (
+        <div className="ball" style={{ left: `${ballPosition}px` }}></div>
+      )}
+    </div>
+  );
+};
 
 export default App;
